@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Floor Plan Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏠 AI Floor Plan Generator</h1>
+            <p>Generate custom floor plans using AI and Graph Neural Networks</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Left Panel: Input Controls -->
+            <div class="control-panel">
+                <div class="section">
+                    <h3>📐 Building Specifications</h3>
+                    <div class="form-group">
+                        <label for="width">Width (meters):</label>
+                        <input type="number" id="width" value="12" min="5" max="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="length">Length (meters):</label>
+                        <input type="number" id="length" value="10" min="5" max="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="floors">Number of Floors:</label>
+                        <input type="number" id="floors" value="2" min="1" max="5">
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>🏘️ Room Requirements</h3>
+                    <div id="room-requirements">
+                        <div class="room-input">
+                            <select class="room-type">
+                                <option value="bedroom">Bedroom</option>
+                                <option value="living">Living Room</option>
+                                <option value="kitchen">Kitchen</option>
+                                <option value="bathroom">Bathroom</option>
+                                <option value="office">Office</option>
+                            </select>
+                            <input type="number" class="room-count" value="2" min="1" max="5">
+                            <button class="remove-room">×</button>
+                        </div>
+                    </div>
+                    <button id="add-room">+ Add Room Type</button>
+                </div>
+
+                <div class="section">
+                    <h3>⚙️ Advanced Settings</h3>
+                    <div class="form-group">
+                        <label for="style">Architectural Style:</label>
+                        <select id="style">
+                            <option value="modern">Modern</option>
+                            <option value="traditional">Traditional</option>
+                            <option value="minimalist">Minimalist</option>
+                            <option value="open_plan">Open Plan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="include-furniture" checked>
+                            Include Furniture
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="include-windows" checked>
+                            Include Windows & Doors
+                        </label>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Export Options</h3>
+                    <div class="export-buttons">
+                        <button id="generate-btn" class="primary-btn">Generate Floor Plan</button>
+                        <button id="export-png" class="secondary-btn">Export as PNG</button>
+                        <button id="export-pdf" class="secondary-btn">Export as PDF</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>📈 Statistics</h3>
+                    <canvas id="stats-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Right Panel: Visualization -->
+            <div class="visualization-panel">
+                <div class="tabs">
+                    <button class="tab active" data-tab="floorplan">Floor Plan</button>
+                    <button class="tab" data-tab="3dview">3D View</button>
+                    <button class="tab" data-tab="analysis">Analysis</button>
+                </div>
+
+                <div class="tab-content active" id="floorplan">
+                    <div id="svg-container"></div>
+                    <div class="floor-navigation">
+                        <button id="prev-floor">← Previous Floor</button>
+                        <span id="current-floor">Floor 1</span>
+                        <button id="next-floor">Next Floor →</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="3dview">
+                    <canvas id="3d-canvas"></canvas>
+                </div>
+
+                <div class="tab-content" id="analysis">
+                    <div id="analysis-content">
+                        <h4>Building Analysis</h4>
+                        <div id="metrics"></div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <h4>Legend</h4>
+                    <div class="legend-items">
+                        <div class="legend-item"><span class="color-box bedroom"></span> Bedroom</div>
+                        <div class="legend-item"><span class="color-box living"></span> Living Room</div>
+                        <div class="legend-item"><span class="color-box kitchen"></span> Kitchen</div>
+                        <div class="legend-item"><span class="color-box bathroom"></span> Bathroom</div>
+                        <div class="legend-item"><span class="color-box stairs"></span> Stairs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>AI Floor Plan Generator v1.0 | Powered by GNN & Procedural Generation</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</body>
+</html>
